@@ -6,13 +6,17 @@ namespace BackEnd.Controllers.API;
 
 [Route("/api/filmstudio")]
 [ApiController]
-public class UserController : ControllerBase
+public class FilmStudioController  : ControllerBase
 {
-private readonly IUserService _ users
-public UserController(IUserService user)
+private readonly IUserService _users;
+
+public FilmStudioController(IUserService Users)
     {
-        _users = users;
+        _users = Users;
     }
 
-    public Task<IEnumerable<FilmStudio>>
+    public Task<IEnumerable<FilmStudio>> Register()
+    {
+        
+    }
 }
