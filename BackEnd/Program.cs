@@ -1,4 +1,7 @@
 using BackEnd.Data;
+using BackEnd.Models;
+using BackEnd.Repository;
+using BackEnd.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("FilmHyrningDb"));
 
+builder.Services.AddScoped<IUser, User>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IFilm, Film>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

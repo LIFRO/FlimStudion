@@ -1,7 +1,7 @@
 namespace BackEnd.Models;
 
-public class FilmCopy
+public class FilmCopy : IFilmCopy
 {
-    public int MovieCopyId { get; set;}
-    public int MovieId { get; set;}
+    public int FilmCopyId { get; set;}
+    public int FilmId { get; set;}
 }

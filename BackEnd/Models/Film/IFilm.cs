@@ -4,8 +4,8 @@ namespace BackEnd.Models;
 
 public interface IFilm
 {
-    public int MovieId { get; set;}
+    public int FilmId { get; set;}
     public string Title { get; set;}
     public string Genre { get; set;}
-    public IList<IFilmCopy> FilmCopies { get; set;}
+    public List<FilmCopy> FilmCopies { get; set;}
 };

@@ -1,0 +1,14 @@
+@base = http://localhost:5001
+##Register a film studio
+
+POST {{base}}/api/filmstudio/register
+Content-Type: application/json
+
+{
+    "UserName": "Test Studio",
+    //ta bort email
+    "Password": "P@ssw0rd!",
+    //skapa StudioNamn
+    "StudioName": "SfStudio",
+    "City": "jönköping"
+}

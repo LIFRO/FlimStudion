@@ -32,3 +32,10 @@ C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\D
 C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\Debug\net8.0\BackEnd.pdb
 C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\Debug\net8.0\BackEnd.genruntimeconfig.cache
 C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\Debug\net8.0\ref\BackEnd.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Konscious.Security.Cryptography.Argon2.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Konscious.Security.Cryptography.Blake2.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\Debug\net8.0\BackEnd.csproj.AssemblyReference.cache
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\Debug\net8.0\BackEnd.csproj.Up2Date

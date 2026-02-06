@@ -1,8 +1,9 @@
 namespace BackEnd.Models;
 
-public class FilmStudio
+public class FilmStudio : IFilmStudio
 {
-    public int StudioId { get; set;}
+    public int FilmStudioId { get; set;}
     public string StudioName { get; set;} = "";
     public string City { get; set;} = "";
-}
+    public List<FilmCopy> RentedFilms { get; set; } = new List<FilmCopy>();
+    }

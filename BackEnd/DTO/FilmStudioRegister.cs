@@ -1,25 +1,24 @@
 using System.ComponentModel.DataAnnotations;
+using BackEnd.Models;
 
 namespace BackEnd.Dto;
 
-public class UserManagementDto
+public class FilmStudioRegister
 {
     [Required]
     public string UserName { get; set; } = "";
 
     [Required]
     [DataType(DataType.EmailAddress)]
-    public string Email { get; set; } = "";
+
+    public string Password { get; set; } = "";
 
     [Required]
-    public string Password { get; set; } = "";
+    public string City { get; set; } = "";
+
+    [Required]
+    public string studioName { get; set; } = "";
 }
 
-public class FilmStudioLoginDto
-{
-    [Required]
-    public string UserName { get; set; } = "";
 
-    [Required]
-    public string Password { get; set; } = "";
-}
+
