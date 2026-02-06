@@ -16,8 +16,7 @@ public class UserRepository : IUserRepository
     {
         _db.FilmStudios.Add(filmStudio);
 
-        _db.Users.Add(user);
-        await _db.SaveChangesAsync();
+        await AddUserAsync(user);
         return user;
     }
 

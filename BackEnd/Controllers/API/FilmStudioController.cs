@@ -17,12 +17,12 @@ public FilmStudioController(IUserService user)
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] FilmStudioRegister request)
+    public async Task<IActionResult> Register([FromBody] UserRegisterDto request)
     {
         if(request.City is null) return BadRequest();
-        if(request.studioName is null) return BadRequest();
+        if(request.StudioName is null) return BadRequest();
 
-        var newUser = await _user.RegisterAsync(request.UserName, request.studioName, request.Password, request.City, "filmstudio");
+        var newUser = await _user.RegisterAsync(request, "filmstudio");
         if(newUser is null) return BadRequest();
         if(newUser.FilmStudio is null) return BadRequest();
     var dto = new FilmStudioUserDto

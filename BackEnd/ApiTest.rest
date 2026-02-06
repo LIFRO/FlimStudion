@@ -1,5 +1,5 @@
 @base = http://localhost:5001
-##Register a film studio
+### Register a film studio
 
 POST {{base}}/api/filmstudio/register
 Content-Type: application/json
@@ -11,4 +11,13 @@ Content-Type: application/json
     //skapa StudioNamn
     "StudioName": "SfStudio",
     "City": "jönköping"
+}
+
+### register an admin
+post {{base}}/api/user/register
+Content-Type: application/json
+
+{
+    "UserName": "Test admin",
+    "Password": "P@ssw0rd!"
 }

@@ -3,6 +3,8 @@ using BackEnd.Models;
 using System.Security.Cryptography;
 using Konscious.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using BackEnd.Dto;
 
 namespace BackEnd.Services;
 
@@ -27,28 +29,28 @@ public class UserService : IUserService
         return Convert.ToBase64String(argon.GetBytes(32));
     }
 
-    public Task<User> RegisterAsync(string name, string studioName, string password, string city, string role)
+    public Task<User> RegisterAsync(UserRegisterDto request,  string role)
     {
+
         //Generate a random Salt per user.
         byte[] salt = RandomNumberGenerator.GetBytes(16);
 
-        var filmStudio = new FilmStudio
-        {
-            StudioName = studioName,
-            City = city 
-        };
         var user = new User
         {
-            UserName = name,
-            Password = HashPasswordArgon2id(password, salt),
+            UserName = request.UserName,
+            Password = HashPasswordArgon2id(request.Password, salt),
             Role = role,
             Salt = salt,
-            FilmStudio = filmStudio
         };
 
 
+        if(role == "filmstudio"){
+        var filmStudio = new FilmStudio{};
+        filmStudio.StudioName = request.StudioName;
+        filmStudio.City = request.City;
         return _users.AddFilmStudioAsync(filmStudio, user);
+        }
 
+        return _users.AddUserAsync(user);
     }
-
 }
