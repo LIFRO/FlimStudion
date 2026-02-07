@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackEnd.Dto;
 
-public class FilmStudioLoginDto
+public class UserLoginDto
 {
     [Required]
     public string UserName { get; set; } = "";

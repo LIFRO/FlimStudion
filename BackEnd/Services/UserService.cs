@@ -5,6 +5,7 @@ using Konscious.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd.Dto;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BackEnd.Services;
 
@@ -29,8 +30,11 @@ public class UserService : IUserService
         return Convert.ToBase64String(argon.GetBytes(32));
     }
 
-    public Task<User> RegisterAsync(UserRegisterDto request,  string role)
+    public async Task<User?> RegisterAsync(UserRegisterDto request,  string role)
     {
+
+        if(await _users.UserExists(request.UserName))
+            return null;
 
         //Generate a random Salt per user.
         byte[] salt = RandomNumberGenerator.GetBytes(16);
@@ -48,9 +52,28 @@ public class UserService : IUserService
         var filmStudio = new FilmStudio{};
         filmStudio.StudioName = request.StudioName;
         filmStudio.City = request.City;
-        return _users.AddFilmStudioAsync(filmStudio, user);
+        user.FilmStudio = filmStudio;
+        return await _users.AddFilmStudioAsync(filmStudio, user);
         }
 
-        return _users.AddUserAsync(user);
+        return await _users.AddUserAsync(user);
     }
+
+        public async Task<User?> LoginAsync(UserLoginDto request)
+    {
+        var user = await _users.FindUser(request);
+        if(user == null)
+        {
+            return null;
+        }
+
+        var passwordCheck = HashPasswordArgon2id(request.Password, user.Salt);
+
+        if(user.Password == passwordCheck)
+        {
+            return user;
+        }
+        return null;
+    }
+
 }

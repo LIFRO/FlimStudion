@@ -14,10 +14,30 @@ Content-Type: application/json
 }
 
 ### register an admin
-post {{base}}/api/user/register
+post {{base}}/api/users/register
 Content-Type: application/json
 
 {
-    "UserName": "Test admin",
+    "UserName": "Testadmin",
     "Password": "P@ssw0rd!"
+}
+
+### login as admin
+post {{base}}/api/users/authenticate
+Content-Type: application/json
+
+{
+    "UserName": "Testadmin",
+    "Password": "P@ssw0rd!"
+}
+
+### login as Filmstudio
+post {{base}}/api/users/authenticate
+Content-Type: application/json
+
+{
+    "UserName": "Test Studio",
+    //ta bort email
+    "Password": "P@ssw0rd!",
+    //skapa StudioNamn
 }
