@@ -38,7 +38,7 @@ public class UserService : IUserService
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: config["Jwt:Issue"],
+            issuer: config["Jwt:Issuer"],
             audience: config["Jwt:Audience"],
             claims: claims,
             expires: DateTime.UtcNow.AddMinutes(60),
@@ -85,7 +85,6 @@ public class UserService : IUserService
         user.FilmStudio = filmStudio;
         return await _users.AddFilmStudioAsync(filmStudio, user);
         }
-
         return await _users.AddUserAsync(user);
     }
 

@@ -1,4 +1,5 @@
 @base = http://localhost:5001
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVzdGFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJleHAiOjE3NzA1MDYzNzMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMSJ9.OggsT2iW14Thvxxb_dOpiQXfufNnxQqR9VsO1Qe7vyU
 ### Register a film studio
 
 POST {{base}}/api/filmstudio/register
@@ -38,4 +39,15 @@ Content-Type: application/json
 {
     "UserName": "Test Studio",
     "Password": "P@ssw0rd!"
+}
+
+### Create movies as admin
+POST {{base}}/api/films
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "Title": "cool shark super 2",
+    "Genre": "Fighter",
+    "Copies": 8
 }

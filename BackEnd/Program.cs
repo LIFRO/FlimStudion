@@ -19,6 +19,8 @@ builder.Services.AddScoped<IUser, User>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFilm, Film>();
+builder.Services.AddScoped<IFilmRepository, FilmRepository>();
+builder.Services.AddScoped<IFilmService, FilmService>();
 
 
 
