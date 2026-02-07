@@ -36,20 +36,29 @@ public UserController(IUserService user)
     {
         var result = await _user.LoginAsync(request);
         if(result == null) return Unauthorized("Invalid credentials");
-
         var (user, token) = result.Value;
-        
-        var dto = new User
+
+        object dto;
+
+        if(user.Role == "admin"){
+            dto = new AdminUserDto
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                Role = user.Role
+            };
+        }
+        else
         {
-            UserId = user.UserId,
-            UserName = user.UserName,
-            Role = user.Role
-        };
+            dto = new FilmStudioDto
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                Role = user.Role,
+                filmStudio = user.FilmStudio
+            };
+        }
 
-        if(user.Role == "filmstudio"){
-            dto.FilmStudio = user.FilmStudio;
-        };
-
-        return Ok(new{ user =dto, token });
+        return Ok(new{ dto, token });
     }
 }

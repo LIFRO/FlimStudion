@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using BackEnd.Models;
 
 namespace BackEnd.Dto;
 
-public class UserLoginDto
+public class UserLoginDto : IuserAuthenticate
 {
     [Required]
     public string UserName { get; set; } = "";

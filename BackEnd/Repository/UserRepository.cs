@@ -17,8 +17,10 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> FindUser(UserLoginDto request)
     {
-        var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserName == request.UserName);
-    
+        var user = await _db.Users
+        .Include(u => u.FilmStudio)
+        .FirstOrDefaultAsync(u => u.UserName == request.UserName);
+
         return user;
     }
 
