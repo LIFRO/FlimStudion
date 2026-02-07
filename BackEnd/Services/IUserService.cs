@@ -7,7 +7,7 @@ namespace BackEnd.Services;
 
 public interface IUserService
 {
-    public Task<User> RegisterAsync(UserRegisterDto request, string role);
+    Task<User> RegisterAsync(UserRegisterDto request, string role);
 
-    public Task<User> LoginAsync(UserLoginDto request);
+    Task<(User user, String token)?> LoginAsync(UserLoginDto request);
 }

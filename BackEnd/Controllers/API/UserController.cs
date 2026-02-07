@@ -34,8 +34,10 @@ public UserController(IUserService user)
     [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate([FromBody] UserLoginDto request)
     {
-        var user = await _user.LoginAsync(request);
-        if(user == null) return Unauthorized("Invalid credentials");
+        var result = await _user.LoginAsync(request);
+        if(result == null) return Unauthorized("Invalid credentials");
+
+        var (user, token) = result.Value;
         
         var dto = new User
         {
@@ -46,8 +48,8 @@ public UserController(IUserService user)
 
         if(user.Role == "filmstudio"){
             dto.FilmStudio = user.FilmStudio;
-        }
+        };
 
-        return Ok(dto);
+        return Ok(new{ user =dto, token });
     }
 }

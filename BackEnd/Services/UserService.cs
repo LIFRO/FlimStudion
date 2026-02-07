@@ -6,17 +6,47 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using BackEnd.Dto;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.ObjectPool;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.AccessControl;
 
 namespace BackEnd.Services;
 
 public class UserService : IUserService
 {
     private readonly IUserRepository _users;
+    private readonly IConfiguration _config;
 
-    public UserService(IUserRepository users)
+    public UserService(IUserRepository users, IConfiguration config)
     {
         _users = users;
+        _config = config;
     }
+
+    private string JwtTokenGeneration(User user, IConfiguration config)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Role, user.Role)
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:key"]));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: config["Jwt:Issue"],
+            audience: config["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(60),
+            signingCredentials: creds
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    } 
 
     public static string HashPasswordArgon2id(string password, byte[] salt)
     {
@@ -59,7 +89,7 @@ public class UserService : IUserService
         return await _users.AddUserAsync(user);
     }
 
-        public async Task<User?> LoginAsync(UserLoginDto request)
+        public async Task<(User user, String token)?> LoginAsync(UserLoginDto request)
     {
         var user = await _users.FindUser(request);
         if(user == null)
@@ -71,7 +101,8 @@ public class UserService : IUserService
 
         if(user.Password == passwordCheck)
         {
-            return user;
+            var token = JwtTokenGeneration(user, _config);
+            return (user, token);
         }
         return null;
     }

@@ -39,3 +39,11 @@ C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\D
 C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
 C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\Debug\net8.0\BackEnd.csproj.AssemblyReference.cache
 C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\obj\Debug\net8.0\BackEnd.csproj.Up2Date
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\linuz\Documents\Skola yrkeshögskola\C#\Api's\FilmHyrning\BackEnd\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
