@@ -9,4 +9,6 @@ public interface IFilmRepository
     Task<Film> SaveMovie(Film request);
     
     Task<FilmCopy> SaveCopy(FilmCopy request);
+
+    Task<FilmStudio[]?> GetStudios();
 }

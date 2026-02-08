@@ -34,4 +34,13 @@ public class FilmRepository : IFilmRepository
         return request;
     }
 
+    public async Task<FilmStudio[]?> GetStudios()
+    {
+        var studios = await _db.FilmStudios
+            .AsNoTracking()
+            .Include(l => l.RentedFilms)
+            .ToArrayAsync();
+
+        return studios;
+    }
 }

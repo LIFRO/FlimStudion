@@ -34,4 +34,16 @@ public class FilmService : IFilmService
 
         return movie;
     }
+
+    public async Task<FilmStudio[]?> GetStudios()
+    {
+        var studios = await _movies.GetStudios();
+
+        if(studios == null)
+        {
+            return null;
+        }
+
+        return studios;
+    }
 }

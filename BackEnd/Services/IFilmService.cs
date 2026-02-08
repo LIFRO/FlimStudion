@@ -4,5 +4,7 @@ namespace BackEnd.Services;
 
 public interface IFilmService
 {
-    public Task<Film?> CreateMovie(CreateFilm request);
+    Task<Film?> CreateMovie(CreateFilm request);
+    
+    Task<FilmStudio[]?> GetStudios();
 }
