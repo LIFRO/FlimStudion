@@ -24,6 +24,15 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public async Task<User?> FindUserWithInt(int userId)
+    {
+        var user = await _db.Users
+        .Include(u => u.FilmStudio)
+        .FirstOrDefaultAsync(u => u.UserId == userId);
+
+        return user;
+    }
+
     public async Task<User> AddFilmStudioAsync(FilmStudio filmStudio, User user)
     {
         _db.FilmStudios.Add(filmStudio);

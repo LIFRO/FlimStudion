@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using BackEnd.Models;
 using BackEnd.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -20,7 +21,7 @@ public class PublicController : ControllerBase
     public async Task<IActionResult> GetMovieStudios()
     {
         var studios = await _movies.GetStudios();
-        if(studios == null) return BadRequest();
+        if(studios == null) return NotFound("No studios found");
 
         if(User.IsInRole("admin")){
             return Ok(studios);
@@ -29,9 +30,21 @@ public class PublicController : ControllerBase
         var dto = studios.Select(s => new
         {
             s.FilmStudioId,
-            s.StudioName,
+            s.StudioName
         });
 
         return Ok(dto);
+    }
+
+    [HttpGet("filmstudios/{id}")]
+    public async Task<IActionResult> GetMovieStudio([FromRoute] int id)
+    {
+        var userIdClaimId = User?.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userRoleClaim = User?.FindFirstValue(ClaimTypes.Role);
+
+        var studio = await _movies.GetStudio(userIdClaimId, userRoleClaim, id);
+        if(studio == null)return NotFound("studio dosnt exist");
+
+        return Ok(studio);
     }
 }

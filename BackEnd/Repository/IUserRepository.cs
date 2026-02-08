@@ -8,6 +8,8 @@ public interface IUserRepository
 
     Task<User?> FindUser(UserLoginDto request);
 
+    Task<User?> FindUserWithInt(int userId);
+
     Task<User> AddFilmStudioAsync(FilmStudio filmStudio, User user);
 
     Task<User> AddUserAsync(User user);

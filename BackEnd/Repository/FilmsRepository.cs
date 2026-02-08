@@ -43,4 +43,11 @@ public class FilmRepository : IFilmRepository
 
         return studios;
     }
+
+    public async Task<FilmStudio?> GetStudioWithId(int Id)
+    {
+        return await _db.FilmStudios
+            .Include(f => f.RentedFilms)
+            .FirstOrDefaultAsync(f => f.FilmStudioId == Id);
+    }
 }

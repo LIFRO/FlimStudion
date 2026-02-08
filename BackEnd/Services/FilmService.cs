@@ -1,3 +1,4 @@
+using BackEnd.Dto;
 using BackEnd.Models;
 using BackEnd.Repository;
 
@@ -6,10 +7,12 @@ namespace BackEnd.Services;
 public class FilmService : IFilmService
 {
     private readonly IFilmRepository _movies;
+    private readonly IUserRepository _users;
 
-    public FilmService(IFilmRepository movies)
+    public FilmService(IFilmRepository movies, IUserRepository users)
     {
         _movies = movies;
+        _users = users;
     }
 
     public async Task<Film?> CreateMovie(CreateFilm request)
@@ -45,5 +48,35 @@ public class FilmService : IFilmService
         }
 
         return studios;
+    }
+
+    public async Task<FilmStudio?> GetStudio(string? userIdClaim, string? role, int studioId)
+    {
+        var studio = await _movies.GetStudioWithId(studioId);
+        if(studio == null) return null;
+        studio = new FilmStudio
+        {
+            FilmStudioId = studio.FilmStudioId,
+            StudioName = studio.StudioName
+        };
+
+        if(role == "admin")
+        {
+            var adminStudio = await _movies.GetStudioWithId(studioId);
+
+            if (adminStudio == null) return null;
+            return adminStudio;
+        }
+
+        if(!int.TryParse(userIdClaim, out var userId))
+        {
+            var user = await _users.FindUserWithInt(userId);
+            
+            if(user == null || user.FilmStudio == null) return studio;
+            if(user.FilmStudio.FilmStudioId == studioId) return await _movies.GetStudioWithId(user.FilmStudio.FilmStudioId);
+            return studio;
+        }
+
+        return studio;
     }
 }
