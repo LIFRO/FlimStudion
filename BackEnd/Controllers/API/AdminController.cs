@@ -22,12 +22,6 @@ public class AdminController : ControllerBase
         var movie = await _movies.CreateMovie(request);
         if (movie == null) return BadRequest();
 
-        var dto = new Film
-        {
-            Title = movie.Title,
-            Genre = movie.Genre,
-            FilmCopies = movie.FilmCopies
-        };
-        return Ok(dto);
+        return Ok(movie);
     }
 }

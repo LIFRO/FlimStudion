@@ -50,7 +50,7 @@ public class FilmService : IFilmService
         return studios;
     }
 
-    public async Task<FilmStudio?> GetStudio(string? userIdClaim, string? role, int studioId)
+    public async Task<FilmStudio?> GetStudioById(string? userIdClaim, string? role, int studioId)
     {
         var studio = await _movies.GetStudioWithId(studioId);
         if(studio == null) return null;
@@ -78,5 +78,19 @@ public class FilmService : IFilmService
         }
 
         return studio;
+    }
+
+    public async Task<Film[]?> GetAllFilms()
+    {
+        var films = await _movies.GetAllFilms();
+
+        return films;
+    }
+
+
+    public async Task<Film?> GetFilmById(int id)
+    {
+        return await _movies.GetFilmWithId(id);
+
     }
 }

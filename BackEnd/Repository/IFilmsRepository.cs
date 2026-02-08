@@ -13,4 +13,8 @@ public interface IFilmRepository
     Task<FilmStudio[]?> GetStudios();
 
     Task<FilmStudio?> GetStudioWithId(int id);
+
+    Task<Film[]?> GetAllFilms();
+
+    Task<Film?> GetFilmWithId(int id);
 }

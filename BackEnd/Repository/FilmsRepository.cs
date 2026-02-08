@@ -50,4 +50,19 @@ public class FilmRepository : IFilmRepository
             .Include(f => f.RentedFilms)
             .FirstOrDefaultAsync(f => f.FilmStudioId == Id);
     }
+
+    public async Task<Film[]?> GetAllFilms()
+    {
+        return await _db.Films
+            .AsNoTracking()
+            .Include(f => f.FilmCopies)
+            .ToArrayAsync();
+    }
+
+    public async Task<Film?> GetFilmWithId(int id)
+    {
+        return await _db.Films
+        .Include(f => f.FilmCopies)
+        .FirstOrDefaultAsync(f => f.FilmId == id);
+    }
 }

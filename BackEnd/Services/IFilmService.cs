@@ -8,5 +8,9 @@ public interface IFilmService
     
     Task<FilmStudio[]?> GetStudios();
 
-    Task<FilmStudio?> GetStudio(string? userId, string? role, int studioId);
+    Task<FilmStudio?> GetStudioById(string? userId, string? role, int studioId);
+
+    Task<Film[]?> GetAllFilms();
+
+    Task<Film?> GetFilmById(int id);
 }
