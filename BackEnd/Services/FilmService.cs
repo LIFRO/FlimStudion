@@ -20,19 +20,6 @@ public class FilmService : IFilmService
     private async Task<bool> CreateCopies(int filmId, int aomunt)
     {
         var stopwatch = Stopwatch.StartNew();
-        for(int i = 0; i < aomunt; i++)
-        {
-            var copy = new FilmCopy
-            {
-                FilmId = filmId
-            };
-            var copySaveSucess = await _movies.SaveCopy(copy);
-            if(copySaveSucess == null) return false; 
-        }
-        stopwatch.Stop();
-        System.Console.WriteLine(stopwatch.Elapsed);
-
-        stopwatch = Stopwatch.StartNew();
         var copies = new List<FilmCopy>();
         for(int i = 0; i < aomunt; i++)
         {
