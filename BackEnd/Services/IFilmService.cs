@@ -13,4 +13,6 @@ public interface IFilmService
     Task<Film[]?> GetAllFilms();
 
     Task<Film?> GetFilmById(int id);
+
+    Task<Film?> UpdateMovie(int dtoId, Film dto);
 }

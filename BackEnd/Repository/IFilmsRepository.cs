@@ -17,4 +17,6 @@ public interface IFilmRepository
     Task<Film[]?> GetAllFilms();
 
     Task<Film?> GetFilmWithId(int id);
+
+    Task<Film?> ChangeMovie(Film dto, int dtoId);
 }

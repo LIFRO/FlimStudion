@@ -91,6 +91,11 @@ public class FilmService : IFilmService
     public async Task<Film?> GetFilmById(int id)
     {
         return await _movies.GetFilmWithId(id);
+    }
 
+    public async Task<Film?> UpdateMovie(int dtoId, Film dto)
+    {
+
+        return await _movies.ChangeMovie(dto, dtoId);
     }
 }

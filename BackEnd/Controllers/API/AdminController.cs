@@ -24,4 +24,16 @@ public class AdminController : ControllerBase
 
         return Ok(movie);
     }
+
+    [Authorize(Roles = "admin")]
+    [HttpPatch("Films/{id}")]
+    public async Task<IActionResult> ChangeMovieDetails([FromRoute] int id, [FromBody] Film film)
+    {
+        var changedMovie = await _movies.UpdateMovie(id, film);
+        if(changedMovie == null)return NotFound("that movie dosnt exist");
+
+        changedMovie.FilmCopies = new List<FilmCopy>{};
+        return Ok(changedMovie);
+        
+    }
 }

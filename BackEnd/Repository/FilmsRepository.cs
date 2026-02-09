@@ -65,4 +65,17 @@ public class FilmRepository : IFilmRepository
         .Include(f => f.FilmCopies)
         .FirstOrDefaultAsync(f => f.FilmId == id);
     }
+
+    public async Task<Film?> ChangeMovie(Film dto, int dtoId)
+    {
+        var film = await _db.Films.Include(f => f.FilmCopies)
+                                    .FirstOrDefaultAsync(f => f.FilmId == dtoId);
+        if(film == null) return null;
+
+        film.Title = dto.Title;
+        film.Genre = dto.Genre;
+        await _db.SaveChangesAsync();
+
+        return film;
+    }
 }
