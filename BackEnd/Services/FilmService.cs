@@ -24,7 +24,6 @@ public class FilmService : IFilmService
         for(int i = 0; i < aomunt; i++)
         {
             copies.Add(new FilmCopy{ FilmId = filmId});
-
         }
             var copiesSaveSucess = await _movies.SaveCopies(copies);
             if(copiesSaveSucess == null) return false; 
@@ -118,7 +117,7 @@ public class FilmService : IFilmService
         if(existingCopies > amountWanted)
         {
             var removeCopiesAmount = existingCopies - amountWanted;
-            var available = film.FilmCopies.Count(c => string.IsNullOrEmpty(c.LoanedByFilmStudioId));
+            var available = film.FilmCopies.Count(c => c.LoanedByFilmStudioId == null);
             if(available < amountWanted) return new(film, "error");
             var movie = await _movies.RemoveFilmCopies(film.FilmId, removeCopiesAmount);
             if(movie == null) return null;
@@ -130,5 +129,60 @@ public class FilmService : IFilmService
         if(copyCreationSuccess == false) return new(film, "Code:zoBzjad#55773");
 
         return new(film, "");
+    }
+
+    public async Task<(FilmStudio? studio, Film? film, string error)?> RentAMovie(int filmId, int studioId)
+    {
+        var filmStudio = await _movies.GetStudioWithId(studioId);
+        var movie = await _movies.GetFilmWithId(filmId);
+        if(filmStudio == null)return new(filmStudio, movie, "studio not found");
+        if(movie == null)return new(filmStudio, movie, "movie not found");
+
+        if (await _movies.StudioHasLoanAsync(filmId, studioId))
+            return new(filmStudio, movie, "Studio already has this movie");
+        var rentedcopy = await _movies.RentAMovie(filmId, studioId);
+        if(rentedcopy == null)return new(filmStudio, movie, "error: jhgANB99643");
+
+        return new(filmStudio, movie, "no error");
+    }
+
+    public async Task<bool?> StudioIdCheck(int userId, int studioId)
+    {
+        var user = await _users.FindUserWithInt(userId);
+        if(user == null || user.FilmStudio == null)return null;
+        if(user.FilmStudio.FilmStudioId == studioId)return true;
+        return false;
+    }
+
+    public async Task<(FilmStudio? studio, Film? film, string error)?> ReturnAMovie(int filmId, int studioId)
+    {
+        var filmStudio = await _movies.GetStudioWithId(studioId);
+        var movie = await _movies.GetFilmWithId(filmId);
+        if(filmStudio == null)return new(filmStudio, movie, "studio not found");
+        if(movie == null)return new(filmStudio, movie, "movie not found");
+
+        if(!await _movies.StudioHasLoanAsync(filmId, studioId))
+            return new(filmStudio, movie, "Studio does not have this movie");
+        var unrentedcopy = await _movies.ReturnAMovie(filmId, studioId);
+        if(unrentedcopy == null)return new(filmStudio, movie, "error: jhgANB99643");
+
+        return new(filmStudio, movie, "no error");
+    }
+
+    public async Task<(IFilmCopy[]? film, string error)?> GetRentedMovies(int userId)
+    {
+        var user = await _users.FindUserWithInt(userId);
+        if(user == null || user.FilmStudio == null)
+            return new(null, "User or filmstudio not find");
+
+        var studio = await _movies.GetStudioWithId(user.FilmStudio.FilmStudioId);
+
+        if(studio == null)return new(null, "no studio found");
+
+        var rentedCopies = studio.RentedFilms
+            .Cast<IFilmCopy>()
+            .ToArray();
+        
+        return new(rentedCopies, "no error");
     }
 }

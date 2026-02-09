@@ -91,7 +91,7 @@ public class FilmRepository : IFilmRepository
     public async Task<Film?> RemoveFilmCopies(int id, int amount)
     {
         var copies = await _db.FilmCopies
-            .Where(c => c.FilmId == id && string.IsNullOrEmpty(c.LoanedByFilmStudioId))
+            .Where(c => c.FilmId == id && c.LoanedByFilmStudioId == null)
             .OrderBy(c => c.FilmCopyId)
             .Take(amount)
             .ToListAsync();
@@ -102,4 +102,44 @@ public class FilmRepository : IFilmRepository
                 .Include(f => f.FilmCopies)
                 .FirstOrDefaultAsync(f => f.FilmId == id);
     }
+
+    public async Task<FilmCopy?> RentAMovie(int filmId, int studioId)
+    {
+        var studio = await _db.FilmStudios
+        .Include(s => s.RentedFilms)
+        .FirstOrDefaultAsync(s => s.FilmStudioId == studioId);
+        if (studio == null) return null;
+
+        var filmCopy = await _db.FilmCopies
+        .OrderBy(c => c.FilmCopyId)
+        .FirstOrDefaultAsync(c => c.FilmId == filmId && c.LoanedByFilmStudioId == null);
+        if(filmCopy == null)return null;
+
+        filmCopy.LoanedByFilmStudioId = studioId;
+        studio.RentedFilms.Add(filmCopy);
+        await _db.SaveChangesAsync();
+        return filmCopy;
+    }
+
+        public async Task<FilmCopy?> ReturnAMovie(int filmId, int studioId)
+    {
+        var studio = await _db.FilmStudios
+            .Include(s => s.RentedFilms)
+            .FirstOrDefaultAsync(s => s.FilmStudioId == studioId);
+            if(studio == null)return null;
+
+        var filmCopy = await _db.FilmCopies
+        .OrderBy(c => c.FilmCopyId)
+        .FirstOrDefaultAsync(c => c.FilmId == filmId && c.LoanedByFilmStudioId == studioId);
+        if(filmCopy == null)return null;
+        
+        filmCopy.LoanedByFilmStudioId = null;
+        studio.RentedFilms.Remove(filmCopy);
+        await _db.SaveChangesAsync();
+        return filmCopy;
+    }
+
+    public Task<bool> StudioHasLoanAsync(int filmId, int studioId) =>
+    _db.FilmCopies.AsNoTracking()
+        .AnyAsync(c => c.FilmId == filmId && c.LoanedByFilmStudioId == studioId);
 }

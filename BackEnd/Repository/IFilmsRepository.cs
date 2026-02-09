@@ -23,4 +23,10 @@ public interface IFilmRepository
     Task<Film?> ChangeMovie(Film dto, int dtoId);
 
     Task<Film?> RemoveFilmCopies(int id, int amount);
+
+    Task<FilmCopy?> RentAMovie(int filmId, int studioId);
+
+    Task<FilmCopy?> ReturnAMovie(int filmId, int studioId);
+
+    Task<bool> StudioHasLoanAsync(int filmId, int studioId);
 }

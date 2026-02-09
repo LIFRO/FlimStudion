@@ -1,5 +1,5 @@
 @base = http://localhost:5001
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVzdGFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJleHAiOjE3NzA2Njc4NzMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMSJ9.s9v5167NXAGj8kMVLaMaTTovJjEFhY_lX94JmkHgDME
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVzdCBTdHVkaW8iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJmaWxtc3R1ZGlvIiwiZXhwIjoxNzcwNjg0MDI2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUwMDEifQ.41ftPvMGWLnBQnHNRJAIl4q8PD9YQJWjqIiUrOLeWq0
 ### Register a film studio
 
 POST {{base}}/api/filmstudio/register
@@ -93,8 +93,16 @@ POST {{base}}/api/films/1
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
-50000
+1000
 
 ###Rent a movie as filmstudio or admin
 POST {{base}}/api/films/rent?id=1&studioid=1
+Authorization: Bearer {{token}}
+
+###Return a movie as a filmstudio or admin
+POST {{base}}/api/films/return?id=1&studioid=1
+Authorization: Bearer {{token}}
+
+###Get all loaned movies as filmstudio
+GET {{base}}/api/mystudio/rentals
 Authorization: Bearer {{token}}
