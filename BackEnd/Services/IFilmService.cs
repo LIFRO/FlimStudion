@@ -15,4 +15,6 @@ public interface IFilmService
     Task<Film?> GetFilmById(int id);
 
     Task<Film?> UpdateMovie(int dtoId, Film dto);
+
+    Task<(Film film, string error)?> ChangeMovieCopyAmount(int id, int amountWanted);
 }

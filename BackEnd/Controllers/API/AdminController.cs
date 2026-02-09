@@ -34,6 +34,17 @@ public class AdminController : ControllerBase
 
         changedMovie.FilmCopies = new List<FilmCopy>{};
         return Ok(changedMovie);
-        
+    }
+
+    [Authorize(Roles = "admin")]
+    [HttpPost("Films/{id}")]
+    public async Task<IActionResult> ChangeMovieCopyAmount ([FromRoute]int id, [FromBody] int copyAmount)
+    {
+        var result = await _movies.ChangeMovieCopyAmount(id, copyAmount);
+        var (movie, error) = result.Value;
+        if(movie == null) return NotFound("movie not found"); 
+        if(error == "error") return Conflict("not enough non loaned copies to reduce amount");
+
+        return Ok(movie);
     }
 }

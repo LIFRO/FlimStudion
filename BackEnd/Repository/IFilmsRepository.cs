@@ -10,6 +10,8 @@ public interface IFilmRepository
     
     Task<FilmCopy> SaveCopy(FilmCopy request);
 
+    Task<List<FilmCopy>> SaveCopies(List<FilmCopy> request);
+
     Task<FilmStudio[]?> GetStudios();
 
     Task<FilmStudio?> GetStudioWithId(int id);
@@ -19,4 +21,6 @@ public interface IFilmRepository
     Task<Film?> GetFilmWithId(int id);
 
     Task<Film?> ChangeMovie(Film dto, int dtoId);
+
+    Task<Film?> RemoveFilmCopies(int id, int amount);
 }

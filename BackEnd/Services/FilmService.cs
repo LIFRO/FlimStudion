@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using BackEnd.Dto;
 using BackEnd.Models;
 using BackEnd.Repository;
@@ -15,6 +17,36 @@ public class FilmService : IFilmService
         _users = users;
     }
 
+    private async Task<bool> CreateCopies(int filmId, int aomunt)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        for(int i = 0; i < aomunt; i++)
+        {
+            var copy = new FilmCopy
+            {
+                FilmId = filmId
+            };
+            var copySaveSucess = await _movies.SaveCopy(copy);
+            if(copySaveSucess == null) return false; 
+        }
+        stopwatch.Stop();
+        System.Console.WriteLine(stopwatch.Elapsed);
+
+        stopwatch = Stopwatch.StartNew();
+        var copies = new List<FilmCopy>();
+        for(int i = 0; i < aomunt; i++)
+        {
+            copies.Add(new FilmCopy{ FilmId = filmId});
+
+        }
+            var copiesSaveSucess = await _movies.SaveCopies(copies);
+            if(copiesSaveSucess == null) return false; 
+        stopwatch.Stop();
+        System.Console.WriteLine(stopwatch.Elapsed);
+
+        return true;
+    }
+
     public async Task<Film?> CreateMovie(CreateFilm request)
     {
         if(await _movies.DoesMovieExist(request.Title)) return null;
@@ -26,15 +58,7 @@ public class FilmService : IFilmService
 
         var savedMovie = await _movies.SaveMovie(movie);
 
-        for(int i = 0; i < request.Copies; i++)
-        {
-            var copy = new FilmCopy
-            {
-                FilmId = savedMovie.FilmId
-            };
-            await _movies.SaveCopy(copy);
-        }
-
+        await CreateCopies(savedMovie.FilmId, request.Copies);
         return movie;
     }
 
@@ -95,7 +119,29 @@ public class FilmService : IFilmService
 
     public async Task<Film?> UpdateMovie(int dtoId, Film dto)
     {
-
         return await _movies.ChangeMovie(dto, dtoId);
+    }
+
+    public async Task<(Film film, string error)?> ChangeMovieCopyAmount(int id, int amountWanted)
+    {
+        var film = await _movies.GetFilmWithId(id);
+        if(film == null) return null;
+        int existingCopies = film.FilmCopies.Count();
+
+        if(existingCopies > amountWanted)
+        {
+            var removeCopiesAmount = existingCopies - amountWanted;
+            var available = film.FilmCopies.Count(c => string.IsNullOrEmpty(c.LoanedByFilmStudioId));
+            if(available < amountWanted) return new(film, "error");
+            var movie = await _movies.RemoveFilmCopies(film.FilmId, removeCopiesAmount);
+            if(movie == null) return null;
+            return new(movie, "");
+        }
+
+        var copyCreationSuccess = await CreateCopies(id, amountWanted);
+
+        if(copyCreationSuccess == false) return new(film, "Code:zoBzjad#55773");
+
+        return new(film, "");
     }
 }

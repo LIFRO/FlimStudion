@@ -34,6 +34,15 @@ public class FilmRepository : IFilmRepository
         return request;
     }
 
+    public async Task<List<FilmCopy>> SaveCopies(List<FilmCopy> request)
+    {
+        _db.FilmCopies.AddRange(request);
+        await _db.SaveChangesAsync();
+
+        return request;
+    }
+
+
     public async Task<FilmStudio[]?> GetStudios()
     {
         var studios = await _db.FilmStudios
@@ -77,5 +86,20 @@ public class FilmRepository : IFilmRepository
         await _db.SaveChangesAsync();
 
         return film;
+    }
+
+    public async Task<Film?> RemoveFilmCopies(int id, int amount)
+    {
+        var copies = await _db.FilmCopies
+            .Where(c => c.FilmId == id && string.IsNullOrEmpty(c.LoanedByFilmStudioId))
+            .OrderBy(c => c.FilmCopyId)
+            .Take(amount)
+            .ToListAsync();
+
+            _db.FilmCopies.RemoveRange(copies);
+            await _db.SaveChangesAsync();
+            return await _db.Films
+                .Include(f => f.FilmCopies)
+                .FirstOrDefaultAsync(f => f.FilmId == id);
     }
 }
