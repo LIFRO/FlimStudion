@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FilmHyrning – Logga in</title>
+  <link rel="stylesheet" href="./stylesheet.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">FilmHyrning</div>
+    <nav>
+      <a href="index.html">Filmer</a>
+      <a href="login.html" aria-current="page">Logga in</a>
+      <a href="register.html">Registrera</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="container narrow">
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Filmstudio</p>
+          <h1>Logga in</h1>
+          <p class="muted">Använd de uppgifter som skapats i API:t. Efter inloggning kan du låna och lämna tillbaka filmer.</p>
+        </div>
+      </div>
+
+      <form id="login-form" class="form">
+        <label for="username">Användarnamn</label>
+        <input id="username" name="username" type="text" autocomplete="username" required />
+
+        <label for="password">Lösenord</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+        <label for="api-base">API-bas</label>
+        <input id="api-base" name="api-base" type="text" spellcheck="false" />
+        <button type="button" id="api-reset" class="ghost">Återställ API-bas</button>
+
+        <button type="submit" class="primary">Logga in</button>
+        <p class="muted small">Behöver du ett konto? <a href="register.html">Registrera en filmstudio här</a>.</p>
+      </form>
+
+      <div id="login-message" class="status" data-tone="info"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/login.js"></script>
+</body>
+</html>

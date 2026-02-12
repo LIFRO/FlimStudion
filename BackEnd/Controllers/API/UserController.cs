@@ -19,6 +19,7 @@ public UserController(IUserService user)
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UserRegisterDto request)
     {
+        if(request.IsAdmin == false) return StatusCode(418, "brewing tea");
         var newUser = await _user.RegisterAsync(request, "admin");
         if(newUser is null) return Conflict("Username already exists");
     var dto = new AdminUserDto

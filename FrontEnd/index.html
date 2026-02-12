@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FilmHyrning – Filmer</title>
+  <link rel="stylesheet" href="./stylesheet.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">FilmHyrning</div>
+    <nav>
+      <a href="index.html" aria-current="page">Filmer</a>
+      <a href="login.html">Logga in</a>
+      <a href="register.html">Registrera</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Publik vy</p>
+          <h1>Alla tillgängliga filmer</h1>
+          <p class="muted">Offentlig lista. Logga in som filmstudio för att låna och se dina pågående lån.</p>
+        </div>
+        <form id="api-form" class="api-form">
+          <label for="api-base">API-bas</label>
+          <div class="input-row">
+            <input id="api-base" name="api-base" type="text" spellcheck="false" />
+            <button type="submit" class="ghost">Spara</button>
+            <button type="button" id="api-reset" class="ghost">Återställ</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="status" class="status" data-tone="info"></div>
+      <div id="login-state" class="muted"></div>
+      <div id="film-list" class="grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/index.js"></script>
+</body>
+</html>

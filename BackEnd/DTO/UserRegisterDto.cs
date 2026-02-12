@@ -3,7 +3,7 @@ using BackEnd.Models;
 
 namespace BackEnd.Dto;
 
-public class UserRegisterDto
+public class UserRegisterDto : IUserRegiser
 {
     [Required]
     public string UserName { get; set; } = "";
@@ -14,7 +14,6 @@ public class UserRegisterDto
     public string City { get; set; } = "";
 
     public string StudioName { get; set; } = "";
+
+    public bool IsAdmin { get; set; }
 }
-
-
-

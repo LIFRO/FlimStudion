@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FilmHyrning – Dashboard</title>
+  <link rel="stylesheet" href="./stylesheet.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">FilmHyrning</div>
+    <nav>
+      <a href="index.html">Filmer</a>
+      <a href="login.html">Logga in</a>
+      <a href="register.html">Registrera</a>
+      <a href="dashboard.html" aria-current="page">Dashboard</a>
+    </nav>
+    <button id="logout-btn" class="ghost">Logga ut</button>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Filmstudio</p>
+          <h1>Dashboard</h1>
+          <p class="muted">Hantera dina lån och låna nya filmer.</p>
+        </div>
+        <form id="api-form" class="api-form">
+          <label for="api-base">API-bas</label>
+          <div class="input-row">
+            <input id="api-base" name="api-base" type="text" spellcheck="false" />
+            <button type="submit" class="ghost">Spara</button>
+            <button type="button" id="api-reset" class="ghost">Återställ</button>
+          </div>
+        </form>
+      </div>
+      <div class="badge">Inloggad: <span id="greeting">...</span></div>
+      <div id="dashboard-status" class="status" data-tone="info"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Tillgängligt</p>
+          <h2>Filmer att låna</h2>
+        </div>
+      </div>
+      <div id="film-list" class="grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Dina lån</p>
+          <h2>Aktiva uthyrningar</h2>
+        </div>
+      </div>
+      <div id="rental-list" class="grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/dashboard.js"></script>
+</body>
+</html>

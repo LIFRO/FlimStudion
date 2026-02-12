@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FilmHyrning – Registrera filmstudio</title>
+  <link rel="stylesheet" href="./stylesheet.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">FilmHyrning</div>
+    <nav>
+      <a href="index.html">Filmer</a>
+      <a href="login.html">Logga in</a>
+      <a href="register.html" aria-current="page">Registrera</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="container narrow">
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">Filmstudio</p>
+          <h1>Registrera filmstudio</h1>
+          <p class="muted">Skapa ett filmstudio-konto som kan logga in och låna filmer.</p>
+        </div>
+      </div>
+
+      <form id="register-form" class="form">
+        <label for="username">Användarnamn</label>
+        <input id="username" name="username" type="text" autocomplete="username" required />
+
+        <label for="password">Lösenord</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" required />
+
+        <label for="studioName">Studionamn</label>
+        <input id="studioName" name="studioName" type="text" required />
+
+        <label for="city">Stad</label>
+        <input id="city" name="city" type="text" required />
+
+        <label for="api-base">API-bas</label>
+        <input id="api-base" name="api-base" type="text" spellcheck="false" />
+        <button type="button" id="api-reset" class="ghost small-btn">Återställ API-bas</button>
+
+        <button type="submit" class="primary">Registrera</button>
+      </form>
+
+      <div id="register-message" class="status" data-tone="info"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/register.js"></script>
+</body>
+</html>
